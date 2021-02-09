@@ -1,0 +1,13 @@
+[settings]
+os=Linux
+arch=x86_64
+compiler=gcc
+os_build=Linux
+build_type=Debug
+arch_build=x86_64
+compiler.version=10
+compiler.libcxx=libstdc++11
+
+[options]
+[build_requires]
+[env]

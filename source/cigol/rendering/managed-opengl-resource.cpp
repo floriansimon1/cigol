@@ -1,0 +1,51 @@
+#include <cigol/rendering/managed-opengl-resource.hpp>
+
+namespace cigol::rendering {
+    ManagedOpenglBuffer::ManagedOpenglBuffer(
+        const Deleter& deleter,
+        const GLuint   descriptor
+    )
+    : descriptor(descriptor)
+    , deleter(deleter)
+    {}
+
+    ManagedOpenglBuffer::ManagedOpenglBuffer(
+        ManagedOpenglBuffer&& buffer
+    )
+    : descriptor(std::move(buffer.descriptor))
+    , deleter(std::move(buffer.deleter))
+    {
+        buffer.descriptor.reset();
+
+        buffer.deleter = nullptr;
+    }
+
+    ManagedOpenglBuffer::~ManagedOpenglBuffer() {
+        if (this->descriptor.has_value()) {
+            this->deleter(1, &this->descriptor.value());
+        }
+    }
+
+    GLuint
+    ManagedOpenglBuffer::unwrap() const {
+        return this->descriptor.value();
+    }
+
+    ManagedOpenglBuffer
+    ManagedOpenglBuffer::createVertexArray() {
+        GLuint descriptor;
+
+        glGenVertexArrays(1, &descriptor);
+
+        return ManagedOpenglBuffer(glDeleteVertexArrays, descriptor);
+    }
+
+    ManagedOpenglBuffer
+    ManagedOpenglBuffer::createGenericBuffer() {
+        GLuint descriptor;
+
+        glGenBuffers(1, &descriptor);
+
+        return ManagedOpenglBuffer(glDeleteBuffers, descriptor);
+    }
+}
