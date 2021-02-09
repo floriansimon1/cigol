@@ -1,10 +1,10 @@
 #pragma once
 
-#include <cigol/ecs/scene.hpp>
+#include <vector>
 
 namespace cigol::application {
-    cigol::ecs::Scene
-    makeMainScene(
+    const std::vector<std::byte>
+    generateBaseState(
         const unsigned width,
         const unsigned height
     );

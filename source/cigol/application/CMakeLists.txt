@@ -4,6 +4,9 @@ find_package(range-v3 MODULE REQUIRED)
 add_library(application OBJECT
     main-scene.hpp
     main-scene.cpp
+
+    generate-base-image.hpp
+    generate-base-image.cpp
 )
 
 target_link_libraries(application

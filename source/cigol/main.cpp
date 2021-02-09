@@ -27,7 +27,7 @@ main(
 
     glClearColor(0.52f, 0.81f, 0.92f, 1.0f);
 
-    cigol::ecs::Scene mainScene = cigol::application::makeMainScene(width / height);
+    cigol::ecs::Scene mainScene = cigol::application::makeMainScene(width / 10, height / 10);
 
     auto lastRenderedFrameTime = std::chrono::system_clock::now();
 
